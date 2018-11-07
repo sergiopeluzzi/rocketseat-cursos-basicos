@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Manipulando o dom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div id="app">
+        <button onmouseover="mostraAlerta()">Passe por cima</button>
+        <button onclick="mostraAlerta()">Click me</button>
+        <div style="margin-top: 25px">
+            <input type="text" name="nomes" id="nome">
+            <button class="botao">Adicionar</button>
+        </div>
+        
+        <input type="text" id="text" >
+        
+        <div class="box"></div>
+
+        <div id="exercicios">
+            <div id="exercicio1">
+                <h3>1º Exercicios</h3>
+                <p>
+                    Crie um botão que ao ser clicado cria um novo elemento em tela com a forma de um quadrado
+                    vermelho com 100px de altura e largura. Sempre que o botão for clicado um novo quadrado deve
+                    aparecer na tela.
+                </p>
+                <button id="btnex1">Criar</button>
+            </div>
+            <div id="exercicio2">
+                <h3>2º Exercicios</h3>
+                <p>
+                    Utilizando o resultado do primeiro desafio, toda vez que o usuário passar o mouse por cima de
+                    algum quadrado troque sua cor para uma cor aleatória gerada pela função abaixo:
+                </p>
+            </div>
+            <div id="exercicio3">
+                <h3>3º Exercicios</h3>
+                <p>
+                    A partir do seguinte vetor:
+                    Preencha uma lista (ul) no HTML com os itens da seguinte forma:
+                    ● Diego ● Gabriel ● Lucas
+                            
+                </p>
+            </div>
+            <div id="exercicio4">
+                <input type="text" id="nomeex4">
+                <button id="btnex4">Adicionar</button>
+            </div>                
+        </div>
+
+    </div>
+    <script>
+        function mostraAlerta() {
+            alert('Botão foi clicado');
+        }
+
+        var inputElementId = document.getElementById('nome');
+        var inputElementTagName = document.getElementsByTagName('input')[0];
+        var inputElementClassName = document.getElementsByClassName('botao')[0];
+        var inputElementQuerySelector = document.querySelector('div#app input');
+        var inputElementQuerySelector = document.querySelector('input[name=nomes]');
+        var inputElementQuerySelectorAll = document.querySelectorAll('button');
+
+        console.log(inputElementId);
+        console.log(inputElementTagName);
+        console.log(inputElementClassName);
+        console.log(inputElementQuerySelector);
+        console.log(inputElementQuerySelectorAll);
+
+        var inputElement = document.querySelector('input#nome');
+        var btnElement = document.querySelector('button.botao');
+        
+        btnElement.onclick = function() {
+            var text = inputElement.value;
+            alert(text);
+        }
+
+        var linkElement = document.createElement('a');
+        linkElement.setAttribute('href', 'http://www.scalare.com.br');
+        var textElement = document.createTextNode('Acessar');
+        linkElement.appendChild(textElement);
+
+        var appContainer = document.querySelector('#app');
+        appContainer.appendChild(linkElement);
+
+        var inputtext = document.querySelector('#text')
+        appContainer.removeChild(inputtext);
+
+        console.log(linkElement);
+        console.log(appContainer);
+
+        var box = document.querySelector('.box');
+        box.style.width = '100px';
+        box.style.height = '100px';
+        box.style.backgroundColor = '#ff0000';
+        box.style.margin = '25px';
+        
+        console.log(box)
+
+        //Exercicio 1
+        var btnex1 = document.querySelector('#btnex1');
+        var divex1 = document.querySelector('#exercicio1');
+        btnex1.onclick = function() {
+            var square = document.createElement('div');
+            square.style.width = '100px';
+            square.style.height = '100px';
+            square.style.backgroundColor = '#ff0000';
+            square.setAttribute('class', 'square');
+            
+            //Adição do codigo do exercicio 2
+            square.onmouseover = function() {
+                square.style.backgroundColor = getRandomColor();
+            }
+
+            divex1.appendChild(square);
+        }
+
+        //Exercicio 2
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+        
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+        
+            return color;
+        }
+
+        var newColor = getRandomColor(); // #E943F0
+
+        //Exercicio 3
+        var nomes = ["Diego", "Gabriel", "Lucas", "Sergio"];
+        var listaul = document.createElement('ul');
+        
+        for (n of nomes) {
+            var listali = document.createElement('li');
+            var textli = document.createTextNode(n);
+            listali.appendChild(textli);
+            listaul.appendChild(listali);
+        }
+
+        var divex3 = document.querySelector('#exercicio3');
+        divex3.appendChild(listaul);
+
+        //Exercicio 4
+        var nomeex4 = document.querySelector('#nomeex4');
+        var btnex4 = document.querySelector('#btnex4');
+
+        btnex4.onclick = function() {
+            var textoex4 = nomeex4.value;
+            if (textoex4) {
+                var novoitem4 = document.createElement('li');
+                var novotext4 = document.createTextNode(textoex4);
+                novoitem4.appendChild(novotext4);
+                listaul.appendChild(novoitem4);
+                nomeex4.value = "";
+            }
+        }
+
+    </script>
+</body>
+</html>
